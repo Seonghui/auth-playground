@@ -19,6 +19,9 @@ importers:
       body-parser:
         specifier: ^1.20.2
         version: 1.20.2
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
       dotenv-flow:
         specifier: ^4.1.0
         version: 4.1.0
@@ -44,6 +47,9 @@ importers:
       '@types/body-parser':
         specifier: ^1.19.5
         version: 1.19.5
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
@@ -80,6 +86,15 @@ importers:
 
   packages/frontend:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.37.1
+        version: 5.37.1(react@18.3.1)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.37.1
+        version: 5.37.1(@tanstack/react-query@5.37.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: ^1.6.8
+        version: 1.7.0
       next:
         specifier: 14.2.3
         version: 14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -95,6 +110,9 @@ importers:
       styled-components:
         specifier: ^6.1.11
         version: 6.1.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zustand:
+        specifier: ^4.5.2
+        version: 4.5.2(@types/react@18.3.2)(react@18.3.1)
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -403,6 +421,23 @@ packages:
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
 
+  '@tanstack/query-core@5.36.1':
+    resolution: {integrity: sha512-BteWYEPUcucEu3NBcDAgKuI4U25R9aPrHSP6YSf2NvaD2pSlIQTdqOfLRsxH9WdRYg7k0Uom35Uacb6nvbIMJg==}
+
+  '@tanstack/query-devtools@5.37.1':
+    resolution: {integrity: sha512-XcG4IIHIv0YQKrexTqo2zogQWR1Sz672tX2KsfE9kzB+9zhx44vRKH5si4WDILE1PIWQpStFs/NnrDQrBAUQpg==}
+
+  '@tanstack/react-query-devtools@5.37.1':
+    resolution: {integrity: sha512-fWL3rV/avL9HsHt3RVYxuLCqSHghBwSGPIUMDZ9hfg9PDjQaeI9d8kJj6yLoCBWUhTue5/rQbISvFtr+yxyYyA==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.37.1
+      react: ^18.0.0
+
+  '@tanstack/react-query@5.37.1':
+    resolution: {integrity: sha512-EhtBNA8GL3XFeSx6VYUjXQ96n44xe3JGKZCzBINrCYlxbZP6UwBafv7ti4eSRWc2Fy+fybQre0w17gR6lMzULA==}
+    peerDependencies:
+      react: ^18.0.0
+
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
 
@@ -423,6 +458,9 @@ packages:
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
+
+  '@types/cors@2.8.17':
+    resolution: {integrity: sha512-8CGDvrBj1zgo2qE+oS3pOCyYNqCPryMWY2bGfwA0dcfopWGgxs+78df0Rs3rc9THP4JkOhLsAa+15VdpAqkcUA==}
 
   '@types/express-serve-static-core@4.19.0':
     resolution: {integrity: sha512-bGyep3JqPCRry1wq+O5n7oiBgGWmeIJXPjXXCo8EK0u8duZGSYar7cGqd3ML2JUsLGeB7fmc06KYo9fLGWqPvQ==}
@@ -819,6 +857,10 @@ packages:
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
+
+  cors@2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
 
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
@@ -2356,6 +2398,11 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
+  use-sync-external-store@1.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
@@ -2436,6 +2483,21 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  zustand@4.5.2:
+    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
 
 snapshots:
 
@@ -2726,6 +2788,21 @@ snapshots:
       '@swc/counter': 0.1.3
       tslib: 2.6.2
 
+  '@tanstack/query-core@5.36.1': {}
+
+  '@tanstack/query-devtools@5.37.1': {}
+
+  '@tanstack/react-query-devtools@5.37.1(@tanstack/react-query@5.37.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-devtools': 5.37.1
+      '@tanstack/react-query': 5.37.1(react@18.3.1)
+      react: 18.3.1
+
+  '@tanstack/react-query@5.37.1(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.36.1
+      react: 18.3.1
+
   '@tsconfig/node10@1.0.11': {}
 
   '@tsconfig/node12@1.0.11': {}
@@ -2742,6 +2819,10 @@ snapshots:
       '@types/node': 20.12.12
 
   '@types/connect@3.4.38':
+    dependencies:
+      '@types/node': 20.12.12
+
+  '@types/cors@2.8.17':
     dependencies:
       '@types/node': 20.12.12
 
@@ -3217,6 +3298,11 @@ snapshots:
   cookie-signature@1.0.6: {}
 
   cookie@0.6.0: {}
+
+  cors@2.8.5:
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
 
   create-require@1.1.1: {}
 
@@ -4938,6 +5024,10 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
+  use-sync-external-store@1.2.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+
   utils-merge@1.0.1: {}
 
   v8-compile-cache-lib@3.0.1: {}
@@ -5026,3 +5116,10 @@ snapshots:
   yn@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zustand@4.5.2(@types/react@18.3.2)(react@18.3.1):
+    dependencies:
+      use-sync-external-store: 1.2.0(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 18.3.2
+      react: 18.3.1

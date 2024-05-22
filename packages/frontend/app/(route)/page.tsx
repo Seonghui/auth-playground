@@ -1,8 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import styles from './page.module.css';
-
 export default function Home() {
   return (
     <main>
@@ -11,7 +8,7 @@ export default function Home() {
           background: papayawhip;
         `}
       >
-        홈페이지
+        <div>홈페이지</div>
       </div>
     </main>
   );

@@ -3,32 +3,33 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import React from 'react';
+import { useMutation } from '@tanstack/react-query';
+import userApi from '@/api/userApi';
+import { useRouter } from 'next/navigation';
+import { IRegisterInput } from '@/types/api';
 
-type Inputs = {
-  username: string;
-  email: string;
-  password: string;
-};
+export default function Page() {
+  const router = useRouter();
+  const { register, handleSubmit } = useForm<IRegisterInput>();
+  const { mutate } = useMutation({
+    mutationFn: userApi.postRegister,
+    onSuccess: response => {
+      router.push('/');
+    },
+  });
 
-export default function page() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<IRegisterInput> = data => {
+    mutate(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
       <input
         {...register('username', { required: true })}
         placeholder="username"
       />
       <br />
 
-      {/* include validation with required or other standard HTML validation rules */}
       <input {...register('email', { required: true })} placeholder="email" />
 
       <br />
@@ -36,7 +37,6 @@ export default function page() {
         {...register('password', { required: true })}
         placeholder="password"
       />
-      {/* errors will return when field validation fails  */}
 
       <br />
       <input type="submit" />

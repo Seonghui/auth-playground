@@ -6,6 +6,7 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import { errorMiddleware } from './middlewares/error-middleware';
 
@@ -20,6 +21,13 @@ mongoose
   .catch(err => {
     console.error('Failed to connect to MongoDB', err);
   });
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }),
+);
 
 app.use(bodyParser.json());
 
