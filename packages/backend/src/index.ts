@@ -1,6 +1,7 @@
 import dotenvFlow from 'dotenv-flow';
 dotenvFlow.config();
 import usersRoutes from './routes/users-routes';
+import userRoutes from './routes/user-routes';
 
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
@@ -34,6 +35,8 @@ app.use(bodyParser.json());
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript with Express!');
 });
+
+app.use('/api/user', userRoutes);
 
 app.use('/api/users', usersRoutes);
 

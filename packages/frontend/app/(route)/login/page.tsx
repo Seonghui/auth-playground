@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import React from 'react';
 import { useMutation } from '@tanstack/react-query';
-import userApi from '@/api/userApi';
+import usersApi from '@/api/usersApi';
 import { useRouter } from 'next/navigation';
 import { ILoginInput } from '@/types/api';
 import useUserStore from '@/store/userStore';
@@ -14,7 +14,7 @@ export default function Page() {
   const { setUser } = useUserStore();
   const { register, handleSubmit } = useForm<ILoginInput>();
   const { mutate } = useMutation({
-    mutationFn: userApi.postLogin,
+    mutationFn: usersApi.postLogin,
     onSuccess: response => {
       router.push('/');
       setUser(response);

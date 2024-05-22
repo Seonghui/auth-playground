@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import React from 'react';
 import { useMutation } from '@tanstack/react-query';
-import userApi from '@/api/userApi';
+import usersApi from '@/api/usersApi';
 import { useRouter } from 'next/navigation';
 import { IRegisterInput } from '@/types/api';
 
@@ -12,7 +12,7 @@ export default function Page() {
   const router = useRouter();
   const { register, handleSubmit } = useForm<IRegisterInput>();
   const { mutate } = useMutation({
-    mutationFn: userApi.postRegister,
+    mutationFn: usersApi.postRegister,
     onSuccess: response => {
       router.push('/');
     },
