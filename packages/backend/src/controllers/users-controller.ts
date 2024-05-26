@@ -2,14 +2,14 @@ import { Response, Request, NextFunction } from 'express';
 import User from '../models/user';
 import { HttpError } from '../models/http-error';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { generateAccessToken, generateRefreshToken } from '../utils/jwt-util';
+import Token from '../models/token';
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
 
   let existingUser;
   let isValidPassword = false;
-  let token;
 
   try {
     existingUser = await User.findOne({ email: email });
@@ -23,18 +23,22 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       const error = new HttpError(403, '비밀번호가 일치하지 않습니다.');
       return next(error);
     }
+    const userData = {
+      id: existingUser.id,
+      email: existingUser.email,
+    };
 
-    token = jwt.sign(
-      { userId: existingUser.id, email: existingUser.email },
-      process.env.JWT_SECRET_KEY ?? '',
-      { expiresIn: '1h' },
-    );
+    const accessToken = generateAccessToken(userData);
+    const refreshToken = generateRefreshToken(userData);
+
+    await new Token({ token: refreshToken }).save();
 
     res.status(201).json({
       id: existingUser.id,
       username: existingUser.username,
       email: existingUser.email,
-      token,
+      accessToken,
+      refreshToken,
     });
   } catch (err) {
     const error = new HttpError(
@@ -49,7 +53,6 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
   const { username, email, password } = req.body;
   let existingUser;
   let hashedPassword;
-  let token;
 
   try {
     existingUser = await User.findOne({ email: email });
@@ -62,17 +65,20 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     const newUser = new User({ username, email, password: hashedPassword });
     const savedUser = await newUser.save();
 
-    token = jwt.sign(
-      { userId: newUser.id, email: newUser.email },
-      process.env.JWT_SECRET_KEY ?? '',
-      { expiresIn: '1h' },
-    );
+    const userData = {
+      id: savedUser.id,
+      email: savedUser.email,
+    };
+
+    const accessToken = generateAccessToken(userData);
+    const refreshToken = generateRefreshToken(userData);
 
     res.status(201).json({
       id: savedUser.id,
       username: savedUser.username,
       email: savedUser.email,
-      token,
+      accessToken,
+      refreshToken,
     });
   } catch (err) {
     const error = new HttpError(
