@@ -1,9 +1,12 @@
 import { Response, Request } from 'express';
 import Token from '../models/token';
-import { generateAccessToken, verifyRefreshToken } from '../utils/jwt-util';
+import {
+  IUserToken,
+  generateAccessToken,
+  verifyRefreshToken,
+} from '../utils/jwt-util';
 
 const refreshToken = async (req: Request, res: Response) => {
-  console.log('타나요');
   const { refreshToken } = req.body;
 
   if (!refreshToken) {
@@ -15,14 +18,12 @@ const refreshToken = async (req: Request, res: Response) => {
     return res.sendStatus(403);
   }
 
-  const verifyResponse: any = await verifyRefreshToken(refreshToken);
+  const verifyResponse = verifyRefreshToken(refreshToken) as IUserToken;
 
   const userData = {
     id: verifyResponse.id,
     email: verifyResponse.email,
   };
-
-  console.log(verifyResponse);
 
   const accessToken = generateAccessToken(userData);
   res.json({ accessToken });
@@ -30,8 +31,6 @@ const refreshToken = async (req: Request, res: Response) => {
 
 const logout = async (req: Request, res: Response) => {
   const { refreshToken } = req.body;
-
-  console.log(refreshToken);
   await Token.findOneAndDelete({ token: refreshToken });
   res.sendStatus(204);
 };

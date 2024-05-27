@@ -12,6 +12,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 import { errorMiddleware } from './middlewares/error-middleware';
+import { ENV } from './constants';
 
 const app = express();
 const port = 3030;
@@ -27,7 +28,7 @@ mongoose
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: ENV.CLIENT_ENDPOINT,
     credentials: true,
   }),
 );

@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
-export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET ?? '';
-export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET ?? '';
+import { ENV } from '../constants';
 
 export interface IUserToken {
   email: string;
@@ -8,17 +7,17 @@ export interface IUserToken {
 }
 
 export function generateAccessToken(user: IUserToken) {
-  return jwt.sign(user, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+  return jwt.sign(user, ENV.ACCESS_TOKEN_SECRET, { expiresIn: '10s' });
 }
 
 export function generateRefreshToken(user: IUserToken) {
-  return jwt.sign(user, REFRESH_TOKEN_SECRET);
+  return jwt.sign(user, ENV.REFRESH_TOKEN_SECRET);
 }
 
 export function verfiyAccessToken(token: string) {
-  return jwt.verify(token, ACCESS_TOKEN_SECRET);
+  return jwt.verify(token, ENV.ACCESS_TOKEN_SECRET);
 }
 
 export function verifyRefreshToken(token: string) {
-  return jwt.verify(token, REFRESH_TOKEN_SECRET);
+  return jwt.verify(token, ENV.REFRESH_TOKEN_SECRET);
 }
