@@ -6,6 +6,7 @@ interface IToken extends Document {
 
 const TokenSchema = new Schema({
   token: { type: String, required: true },
+  email: { type: String, required: true },
 });
 
 const Token = mongoose.model<IToken>('Token', TokenSchema);

@@ -31,7 +31,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const accessToken = generateAccessToken(userData);
     const refreshToken = generateRefreshToken(userData);
 
-    await new Token({ token: refreshToken }).save();
+    await Token.findOneAndUpdate(
+      { email: existingUser.email },
+      { token: refreshToken },
+      { upsert: true },
+    );
 
     res.status(201).json({
       id: existingUser.id,
@@ -72,6 +76,12 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
     const accessToken = generateAccessToken(userData);
     const refreshToken = generateRefreshToken(userData);
+
+    await Token.findOneAndUpdate(
+      { email: savedUser.email },
+      { token: refreshToken },
+      { upsert: true },
+    );
 
     res.status(201).json({
       id: savedUser.id,
