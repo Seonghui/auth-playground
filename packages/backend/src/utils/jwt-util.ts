@@ -7,7 +7,7 @@ export interface IUserToken {
 }
 
 export function generateAccessToken(user: IUserToken) {
-  return jwt.sign(user, ENV.ACCESS_TOKEN_SECRET, { expiresIn: '10s' });
+  return jwt.sign(user, ENV.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 }
 
 export function generateRefreshToken(user: IUserToken) {

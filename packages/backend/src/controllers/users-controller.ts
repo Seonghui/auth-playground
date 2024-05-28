@@ -38,9 +38,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     );
 
     res.status(201).json({
-      id: existingUser.id,
-      username: existingUser.username,
-      email: existingUser.email,
       accessToken,
       refreshToken,
     });
@@ -84,9 +81,6 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     );
 
     res.status(201).json({
-      id: savedUser.id,
-      username: savedUser.username,
-      email: savedUser.email,
       accessToken,
       refreshToken,
     });

@@ -9,8 +9,13 @@ export interface ILoginInput {
   email: string;
 }
 
+export interface ITokenResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface IUser {
-  token: string;
+  id: string;
   email: string;
   username: string;
 }

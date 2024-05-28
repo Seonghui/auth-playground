@@ -1,3 +1,4 @@
+import { TokenUtil } from '@/utils/tokenUtil';
 import axios from 'axios';
 
 export const instance = axios.create({
@@ -7,8 +8,9 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   request => {
-    if (!!localStorage.getItem('token')) {
-      request.headers['Authorization'] = `${localStorage.getItem('token')}`;
+    const accessToken = TokenUtil.getToken();
+    if (!!accessToken) {
+      request.headers['Authorization'] = `bearer ${accessToken}`;
       request.headers['accept'] = 'application/json';
     }
     return request;

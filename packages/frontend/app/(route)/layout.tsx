@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import useUserStore from '@/store/userStore';
 import { Fragment } from 'react';
+import { TokenUtil } from '@/utils/tokenUtil';
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
 }) {
   const { resetUser, user } = useUserStore();
   const handleClickLogout = () => {
+    TokenUtil.removeToken();
     resetUser();
   };
   return (

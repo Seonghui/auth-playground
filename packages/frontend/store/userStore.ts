@@ -11,11 +11,9 @@ export interface IUserStore {
 const store = (set: any) => ({
   user: null,
   setUser: (user: IUser) => {
-    window.localStorage.setItem('token', user.token);
     set({ user: user });
   },
   resetUser: () => {
-    window.localStorage.removeItem('token');
     set({ user: null });
   },
 });
