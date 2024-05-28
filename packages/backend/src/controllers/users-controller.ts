@@ -41,6 +41,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       httpOnly: true,
       // secure: true, // use true in production
       sameSite: 'strict',
+      maxAge: 30 * 60 * 1000,
     });
     res.status(201).json({
       accessToken,
@@ -88,6 +89,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
       httpOnly: true,
       // secure: true, // use true in production
       sameSite: 'strict',
+      maxAge: 30 * 60 * 1000,
     });
     res.status(201).json({
       accessToken,

@@ -7,11 +7,13 @@ export interface IUserToken {
 }
 
 export function generateAccessToken(user: IUserToken) {
-  return jwt.sign(user, ENV.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+  return jwt.sign(user, ENV.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
 }
 
 export function generateRefreshToken(user: IUserToken) {
-  return jwt.sign(user, ENV.REFRESH_TOKEN_SECRET);
+  return jwt.sign(user, ENV.REFRESH_TOKEN_SECRET, {
+    expiresIn: '30m',
+  });
 }
 
 export function verfiyAccessToken(token: string) {

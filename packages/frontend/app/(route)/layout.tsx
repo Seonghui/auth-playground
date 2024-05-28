@@ -1,17 +1,25 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import useUserStore from '@/store/userStore';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { TokenUtil } from '@/utils/tokenUtil';
 import { authApi } from '@/api/authAPi';
+import userApi from '@/api/userApi';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const [isMounted, setIsMounted] = useState(false);
+  const accessToken = TokenUtil.getToken();
+  const { setUser } = useUserStore();
+
+  const { data } = useQuery({
+    queryKey: ['getUser'],
+    queryFn: userApi.getUser,
+    enabled: !!accessToken,
+  });
+
+  const showLoginNav = !accessToken || !data;
   const { mutate } = useMutation({
     mutationFn: authApi.postLogout,
     onSuccess: () => {
@@ -24,6 +32,21 @@ export default function RootLayout({
   const handleClickLogout = () => {
     mutate();
   };
+
+  useEffect(() => {
+    if (!data || !accessToken) {
+      return;
+    }
+    setUser(data);
+  }, [accessToken, data, setUser]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
   return (
     <Fragment>
       <nav>
@@ -34,7 +57,7 @@ export default function RootLayout({
           <li>
             <Link href="/places">장소</Link>
           </li>
-          {!user && (
+          {showLoginNav && (
             <Fragment>
               <li>
                 <Link href="/login">로그인</Link>
@@ -44,7 +67,7 @@ export default function RootLayout({
               </li>
             </Fragment>
           )}
-          {user && (
+          {!showLoginNav && (
             <Fragment>
               <li>
                 <Link href="/" onClick={handleClickLogout}>
