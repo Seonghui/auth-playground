@@ -37,9 +37,13 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       { upsert: true },
     );
 
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      // secure: true, // use true in production
+      sameSite: 'strict',
+    });
     res.status(201).json({
       accessToken,
-      refreshToken,
     });
   } catch (err) {
     const error = new HttpError(
@@ -80,9 +84,13 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
       { upsert: true },
     );
 
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      // secure: true, // use true in production
+      sameSite: 'strict',
+    });
     res.status(201).json({
       accessToken,
-      refreshToken,
     });
   } catch (err) {
     const error = new HttpError(

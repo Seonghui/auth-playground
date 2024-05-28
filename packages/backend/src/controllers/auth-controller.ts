@@ -7,7 +7,7 @@ import {
 } from '../utils/jwt-util';
 
 const refreshToken = async (req: Request, res: Response) => {
-  const { refreshToken } = req.body;
+  const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
     return res.sendStatus(401);
@@ -32,6 +32,7 @@ const refreshToken = async (req: Request, res: Response) => {
 const logout = async (req: Request, res: Response) => {
   const { refreshToken } = req.body;
   await Token.findOneAndDelete({ token: refreshToken });
+  res.clearCookie('refreshToken');
   res.sendStatus(204);
 };
 

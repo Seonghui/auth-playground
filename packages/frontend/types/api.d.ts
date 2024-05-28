@@ -11,7 +11,6 @@ export interface ILoginInput {
 
 export interface ITokenResponse {
   accessToken: string;
-  refreshToken: string;
 }
 
 export interface IUser {
