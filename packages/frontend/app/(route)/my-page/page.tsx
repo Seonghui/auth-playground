@@ -1,5 +1,6 @@
 'use client';
-import userApi from '@/api/userApi';
+
+import usersApi from '@/api/usersApi';
 import useUserStore, { IUserStore } from '@/store/userStore';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
@@ -9,7 +10,7 @@ export default function Page() {
 
   const { data } = useQuery({
     queryKey: ['getUser'],
-    queryFn: userApi.getUser,
+    queryFn: usersApi.getUser,
   });
 
   console.log(data);

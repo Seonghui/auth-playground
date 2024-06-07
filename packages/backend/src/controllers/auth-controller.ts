@@ -29,14 +29,6 @@ const refreshToken = async (req: Request, res: Response) => {
   res.json({ accessToken });
 };
 
-const logout = async (req: Request, res: Response) => {
-  const { refreshToken } = req.body;
-  await Token.findOneAndDelete({ token: refreshToken });
-  res.clearCookie('refreshToken');
-  res.sendStatus(204);
-};
-
 export default {
-  logout,
   refreshToken,
 };

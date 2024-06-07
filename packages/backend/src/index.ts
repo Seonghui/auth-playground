@@ -1,7 +1,6 @@
 import dotenvFlow from 'dotenv-flow';
 dotenvFlow.config();
 import usersRoutes from './routes/users-routes';
-import userRoutes from './routes/user-routes';
 import authRoutes from './routes/auth-routes';
 import placesRoutes from './routes/places-routes';
 
@@ -41,7 +40,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript with Express!');
 });
 
-app.use('/api/user', userRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/places', placesRoutes);
 app.use('/api/auth', authRoutes);

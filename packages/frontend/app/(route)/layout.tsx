@@ -5,8 +5,7 @@ import Link from 'next/link';
 import useUserStore from '@/store/userStore';
 import { Fragment, useEffect, useState } from 'react';
 import { TokenUtil } from '@/utils/tokenUtil';
-import { authApi } from '@/api/authAPi';
-import userApi from '@/api/userApi';
+import usersApi from '@/api/usersApi';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
@@ -15,13 +14,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const { data } = useQuery({
     queryKey: ['getUser'],
-    queryFn: userApi.getUser,
+    queryFn: usersApi.getUser,
     enabled: !!accessToken,
   });
 
   const showLoginNav = !accessToken || !data;
   const { mutate } = useMutation({
-    mutationFn: authApi.postLogout,
+    mutationFn: usersApi.postLogout,
     onSuccess: () => {
       TokenUtil.removeToken();
       resetUser();

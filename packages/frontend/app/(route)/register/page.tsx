@@ -8,7 +8,6 @@ import usersApi from '@/api/usersApi';
 import { useRouter } from 'next/navigation';
 import { IRegisterInput } from '@/types/api';
 import { TokenUtil } from '@/utils/tokenUtil';
-import userApi from '@/api/userApi';
 import useUserStore from '@/store/userStore';
 
 export default function Page() {
@@ -19,7 +18,7 @@ export default function Page() {
 
   const { data } = useQuery({
     queryKey: ['getUser'],
-    queryFn: userApi.getUser,
+    queryFn: usersApi.getUser,
     enabled: !!accessToken,
   });
   const { register, handleSubmit } = useForm<IRegisterInput>();

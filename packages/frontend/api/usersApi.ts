@@ -18,6 +18,20 @@ const usersApi = {
     );
     return data;
   },
+  postLogout: async () => {
+    const { data } = await instance.post(
+      '/api/users/logout',
+      {},
+      { withCredentials: true },
+    );
+    return data;
+  },
+  getUser: async () => {
+    const { data } = await instance.get('/api/users/me', {
+      withCredentials: true,
+    });
+    return data;
+  },
 };
 
 export default usersApi;

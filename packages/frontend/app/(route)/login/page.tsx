@@ -7,7 +7,6 @@ import usersApi from '@/api/usersApi';
 import { useRouter } from 'next/navigation';
 import { ILoginInput } from '@/types/api';
 import useUserStore from '@/store/userStore';
-import userApi from '@/api/userApi';
 import { TokenUtil } from '@/utils/tokenUtil';
 
 export default function Page() {
@@ -16,7 +15,7 @@ export default function Page() {
 
   const { data } = useQuery({
     queryKey: ['getUser'],
-    queryFn: userApi.getUser,
+    queryFn: usersApi.getUser,
     enabled: !!accessToken,
   });
 
