@@ -3,6 +3,7 @@ dotenvFlow.config();
 import usersRoutes from './routes/users-routes';
 import userRoutes from './routes/user-routes';
 import authRoutes from './routes/auth-routes';
+import placesRoutes from './routes/places-routes';
 
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
@@ -42,6 +43,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/places', placesRoutes);
 app.use('/api/auth', authRoutes);
 
 app.use((req: Request, res: Response) => {

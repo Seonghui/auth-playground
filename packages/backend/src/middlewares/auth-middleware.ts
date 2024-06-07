@@ -17,11 +17,13 @@ export async function authMiddleware(
     }
 
     const response = verfiyAccessToken(token ?? '') as IUserToken;
+
     if (!response.email || !response.id) {
       throw new HttpError(404, '유저 정보가 없습니다.');
     }
 
-    return next();
+    req.userData = { userId: response.id };
+    next();
   } catch (error: unknown) {
     if (error instanceof TokenExpiredError) {
       if (error.name === 'TokenExpiredError') {

@@ -13,6 +13,7 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
       { _id: jwtDecoded.id },
       '-password',
     );
+
     if (!existingUser) {
       const error = new HttpError(404, '유저를 찾을 수 없습니다.');
       return next(error);
