@@ -6,6 +6,12 @@ import useUserStore from '@/src/store/userStore';
 import { Fragment, useEffect, useState } from 'react';
 import { TokenUtil } from '@/src/utils/tokenUtil';
 import usersApi from '@/src/api/usersApi';
+import { GlobalStyle } from '@/src/styles/global';
+import Header from '@/src/component/common/Header';
+import Menu from '@/src/component/common/Menu';
+import Logo from '@/src/component/common/Logo';
+import { css } from 'styled-components';
+import { ModalProvider } from '@/context/ModalContext';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
@@ -48,39 +54,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
   return (
     <Fragment>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">홈</Link>
-          </li>
-          <li>
-            <Link href="/places">장소</Link>
-          </li>
-          {showLoginNav && (
-            <Fragment>
-              <li>
-                <Link href="/login">로그인</Link>
-              </li>
-              <li>
-                <Link href="/register">회원가입</Link>
-              </li>
-            </Fragment>
-          )}
-          {!showLoginNav && (
-            <Fragment>
-              <li>
-                <Link href="/" onClick={handleClickLogout}>
-                  로그아웃
-                </Link>
-              </li>
-              <li>
-                <Link href="/my-page">내 정보</Link>
-              </li>
-            </Fragment>
-          )}
-        </ul>
-      </nav>
-      {children}
+      <ModalProvider>
+        <Header>
+          <Logo />
+          <Menu>
+            <Menu.Item href="/">홈</Menu.Item>
+            <Menu.Item href="/places">장소</Menu.Item>
+            <Menu.Item hide={!showLoginNav} href="/login">
+              로그인
+            </Menu.Item>
+            <Menu.Item hide={!showLoginNav} href="/register">
+              회원가입
+            </Menu.Item>
+            <Menu.Item hide={showLoginNav} href="/" onClick={handleClickLogout}>
+              로그아웃
+            </Menu.Item>
+            <Menu.Item hide={showLoginNav} href="/my-page">
+              내 정보
+            </Menu.Item>
+          </Menu>
+        </Header>
+        {children}
+        <GlobalStyle />
+      </ModalProvider>
     </Fragment>
   );
 }

@@ -3,6 +3,7 @@ import StyledComponentsRegistry from '@/src/lib/registry';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Script from 'next/script';
+import './globals.css';
 
 export default function RootLayout({
   children,
