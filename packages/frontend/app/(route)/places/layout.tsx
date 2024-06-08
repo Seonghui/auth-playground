@@ -1,6 +1,6 @@
 'use client';
 
-import useViewParams from '@/hook/useViewParam';
+import useViewParams from '@/src/hook/useViewParam';
 import Link from 'next/link';
 import React, { PropsWithChildren, useEffect } from 'react';
 

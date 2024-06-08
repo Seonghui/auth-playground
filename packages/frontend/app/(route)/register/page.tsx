@@ -4,11 +4,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import React, { useEffect } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import usersApi from '@/api/usersApi';
+import usersApi from '@/src/api/usersApi';
 import { useRouter } from 'next/navigation';
-import { IRegisterInput } from '@/types/api';
-import { TokenUtil } from '@/utils/tokenUtil';
-import useUserStore from '@/store/userStore';
+import { IRegisterInput } from '@/src/types/api';
+import { TokenUtil } from '@/src/utils/tokenUtil';
+import useUserStore from '@/src/store/userStore';
 
 export default function Page() {
   const accessToken = TokenUtil.getToken();

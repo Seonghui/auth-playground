@@ -1,9 +1,9 @@
 'use client';
 
-import { placeApi } from '@/api/placeAPI';
-import PlaceList from '@/component/service/PlaceList';
-import useUserStore, { IUserStore } from '@/store/userStore';
-import { IPlaceResponse } from '@/types/api';
+import { placeApi } from '@/src/api/placeAPI';
+import PlaceList from '@/src/component/service/PlaceList';
+import useUserStore, { IUserStore } from '@/src/store/userStore';
+import { IPlaceResponse } from '@/src/types/api';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 

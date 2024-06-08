@@ -1,7 +1,7 @@
 'use client';
 
-import { placeApi } from '@/api/placeAPI';
-import { IPlaceInput } from '@/types/api';
+import { placeApi } from '@/src/api/placeAPI';
+import { IPlaceInput } from '@/src/types/api';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React from 'react';

@@ -1,7 +1,7 @@
 'use client';
 
-import usersApi from '@/api/usersApi';
-import useUserStore, { IUserStore } from '@/store/userStore';
+import usersApi from '@/src/api/usersApi';
+import useUserStore, { IUserStore } from '@/src/store/userStore';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 

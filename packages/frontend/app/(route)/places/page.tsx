@@ -1,8 +1,8 @@
 'use client';
 
-import useViewParams from '@/hook/useViewParam';
-import MyPlacesContainer from '@/container/MyPlacesContainer';
-import PlacesContainer from '@/container/PlacesContainer';
+import useViewParams from '@/src/hook/useViewParam';
+import MyPlacesContainer from '@/src/container/MyPlacesContainer';
+import PlacesContainer from '@/src/container/PlacesContainer';
 import { Fragment, useEffect, useRef } from 'react';
 import Script from 'next/script';
 

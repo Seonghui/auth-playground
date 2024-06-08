@@ -1,5 +1,5 @@
-import queryClient from '@/lib/reactQuery';
-import StyledComponentsRegistry from '@/lib/registry';
+import queryClient from '@/src/lib/reactQuery';
+import StyledComponentsRegistry from '@/src/lib/registry';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Script from 'next/script';

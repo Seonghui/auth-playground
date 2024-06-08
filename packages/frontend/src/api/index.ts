@@ -1,4 +1,4 @@
-import { TokenUtil } from '@/utils/tokenUtil';
+import { TokenUtil } from '@/src/utils/tokenUtil';
 import axios from 'axios';
 
 export const instance = axios.create({

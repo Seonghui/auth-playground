@@ -1,4 +1,4 @@
-import { IPlace } from '@/types/api';
+import { IPlace } from '@/src/types/api';
 import React, { Fragment } from 'react';
 
 interface PlaceListProps {

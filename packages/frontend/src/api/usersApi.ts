@@ -1,4 +1,4 @@
-import { ILoginInput, IRegisterInput } from '@/types/api';
+import { ILoginInput, IRegisterInput } from '@/src/types/api';
 import { instance } from '.';
 
 const usersApi = {

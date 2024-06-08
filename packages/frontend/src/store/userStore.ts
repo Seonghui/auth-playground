@@ -1,4 +1,4 @@
-import { IUser } from '@/types/api';
+import { IUser } from '@/src/types/api';
 import { create } from 'zustand';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
 

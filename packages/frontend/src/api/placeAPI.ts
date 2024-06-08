@@ -1,4 +1,4 @@
-import { IPlaceInput } from '@/types/api';
+import { IPlaceInput } from '@/src/types/api';
 import { instance } from '.';
 
 export const placeApi = {
