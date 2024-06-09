@@ -1,13 +1,19 @@
 'use client';
 
+import { useModal } from '@/context/ModalContext';
 import { placeApi } from '@/src/api/placeAPI';
+import Confirm from '@/src/component/common/Confirm';
+import Radio from '@/src/component/common/Radio';
 import { IPlaceInput } from '@/src/types/api';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 export default function Page() {
+  const [selectedPlace, setSelectedPlace] =
+    useState<kakao.maps.services.PlacesSearchResultItem>();
+  const { addModal, removeModal } = useModal();
   const { register, handleSubmit, watch } = useForm<IPlaceInput>();
   const router = useRouter();
   const { mutate } = useMutation({
@@ -18,27 +24,62 @@ export default function Page() {
   });
 
   const onSubmit: SubmitHandler<IPlaceInput> = data => {
-    mutate(data);
+    mutate({
+      ...data,
+      address: selectedPlace?.address_name,
+      location: {
+        lat: Number(selectedPlace?.x),
+        lng: Number(selectedPlace?.y),
+      },
+    });
   };
 
-  function placesSearchCB(data: any, status: any) {
+  const handleConfirmPlace = (
+    list: kakao.maps.services.PlacesSearchResult,
+    id: string,
+  ) => {
+    const result = list.find(place => place.id === id);
+    setSelectedPlace(result);
+    removeModal();
+  };
+
+  const keywordSearchCallback = (
+    data: kakao.maps.services.PlacesSearchResult,
+    status: kakao.maps.services.Status,
+  ) => {
+    let selectedPlaceId: string = '';
     if (status === window.kakao.maps.services.Status.OK) {
-      console.log(data);
-      // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-      // LatLngBounds 객체에 좌표를 추가합니다
-      //   var bounds = new kakao.maps.LatLngBounds();
-      //   for (var i = 0; i < data.length; i++) {
-      //     displayMarker(data[i]);
-      //     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-      //   }
-      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-      //   map.setBounds(bounds);
+      const handleRadioChange = (value: string) => {
+        selectedPlaceId = value;
+      };
+
+      const content = data.map(item => {
+        return (
+          <Radio value={item.id} key={item.id}>
+            <div>{item.place_name}</div>
+            <div>{item.address_name}</div>
+          </Radio>
+        );
+      });
+      addModal(
+        <Confirm
+          content={
+            <Radio.Group onChange={handleRadioChange}>{content}</Radio.Group>
+          }
+          onClose={() => {
+            removeModal();
+          }}
+          onCloseLabel="취소"
+          onConfirmLabel="삭제"
+          onConfirm={() => handleConfirmPlace(data, selectedPlaceId)}
+        />,
+      );
     }
-  }
+  };
 
   const handleClickSearchPlace = () => {
     var ps = new window.kakao.maps.services.Places();
-    ps.keywordSearch(watch('title'), placesSearchCB);
+    ps.keywordSearch(watch('title'), keywordSearchCallback);
   };
 
   return (

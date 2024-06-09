@@ -39,9 +39,9 @@ export interface IPlaceInput {
   title: string;
   description: string;
   image?: string;
-  address: string;
-  location: {
-    lat: number;
-    lng: number;
+  address?: string;
+  location?: {
+    lat?: number;
+    lng?: number;
   };
 }

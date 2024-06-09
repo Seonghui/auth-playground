@@ -2,8 +2,12 @@
 
 import { useModal } from '@/context/ModalContext';
 import Confirm from '@/src/component/common/Confirm';
+import Radio from '@/src/component/common/Radio';
 
 export default function Home() {
+  const handleRadioChange = (value: string) => {
+    console.log('Selected Value:', value);
+  };
   const { addModal, removeModal } = useModal();
   const handleClickDelete = () => {
     addModal(
@@ -32,6 +36,14 @@ export default function Home() {
           background: papayawhip;
         `}
       >
+        <div style={{ padding: '20px' }}>
+          <h1>Custom Radio Component</h1>
+          <Radio.Group defaultValue="b" onChange={handleRadioChange}>
+            <Radio value="a">Option A</Radio>
+            <Radio value="b">Option B</Radio>
+            <Radio value="c">Option C</Radio>
+          </Radio.Group>
+        </div>
         <div>홈페이지</div>
         <button onClick={handleClickDelete}>모달 나오나용</button>
       </div>
